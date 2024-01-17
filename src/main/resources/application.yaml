@@ -1,0 +1,24 @@
+server:
+  port: 9999
+spring:
+  datasource:
+    username: root
+    password: 1234
+    url: jdbc:mysql://192.168.88.132:3306/searchWordWeb
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  thymeleaf:
+    cache: false
+  data:
+    redis:
+      host: 192.168.88.132
+      port: 6379
+baiduconf:
+  app-id: 46774785
+  secret-key: bmkRRb6bF4jCrqN1e3y2aRpu1zhEDwI4
+  api-key: macsD4uwmliGVVKwp7snQR1Z
+youdao:
+  app-key: 460afdf6f1f0e987
+  secret-key: fzjTqD63G3QRxezD0j7SJyFxtt6AvBOZ
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true

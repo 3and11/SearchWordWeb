@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="zh">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>单词查找器</title>
+    <style>
+        body {
+            background-color: #121212; /* 夜间背景颜色 */
+            color: #ffffff;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        input,
+        button {
+            font-size: 16px;
+            padding: 5px;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .head{
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+<h1>单词查找器</h1>
+<form class="searchForm" action="" method="get" >
+    <label>
+        <input id ="searchInput" type="text"  placeholder="请输入要查找的单词" />
+    </label>
+    <button  id="submit" >查找</button>
+</form>
+
+<div id="searchSection">
+    <div class="result">
+        <span class="head">搜索结果</span>
+        <br>
+        <div th:if="basic.exam_type!=null">
+            <span  class="head">考试类型：</span>
+            <span  th:each="exam:${basic.exam_type}">
+                <span th:text="${exam}"></span>
+            </span>
+        </div>
+
+        <br>
+        <span class="head">释义：</span>
+        <span  th:if="basic.explain!=null" th:each="explain:${basic.getExplains()}">
+        <span th:text="${explain}"></span>
+    </span>
+        <br>
+        <span class="head">网络释义</span>
+        <br>
+
+        <span th:each="w:${web}">
+      <span th:value="${w.getKey()}"></span>
+        <span th:each="value:${w.getValue()}">
+            <span th:text="${value}"></span>
+        </span>
+        <br>
+    </span>
+        <br>
+        <span class="head">读音</span>
+        <audio controls autoplay="autoplay">
+            <source th:src="${basic.getUk_speech()}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+    <div id="history">
+        <table th:if="words!=null">
+           <thead>
+           <tr th:text="word.get"></tr>
+           <tr>
+               <th>单词</th>
+               <th>解释<th>
+           </tr>
+           </thead>
+            <tr>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script>
+    const Input=document.getElementById("searchInput");
+    Input.focus();
+    const searchForm=document.querySelector('.searchForm');
+    document.getElementById("submit").addEventListener("click",function (){
+        searchForm.action="http://192.168.0.115:9999/search/word="+Input.value;
+    })
+</script>
+</body>
+</html>
